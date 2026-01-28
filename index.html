@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Vansh 🖤</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box;}
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:#000;
+    color:white;
+    overflow:hidden;
+}
+
+/* Pages */
+.page{
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:transform 1s ease;
+}
+.hidden{ transform:translateX(100%); }
+
+/* Floating hearts */
+.heart{
+    position:absolute;
+    animation:float 6s linear infinite;
+    opacity:0.6;
+}
+@keyframes float{
+    0%{transform:translateY(100vh);opacity:0;}
+    50%{opacity:0.8;}
+    100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Card */
+.card{
+    background:rgba(0,0,0,0.88);
+    padding:35px;
+    border-radius:30px;
+    max-width:520px;
+    width:90%;
+    text-align:center;
+    box-shadow:0 0 40px rgba(255,255,255,0.2);
+}
+
+.big-heart{
+    font-size:70px;
+    animation:beat 1.3s infinite;
+}
+@keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.25);}
+}
+
+button{
+    margin-top:25px;
+    padding:12px 30px;
+    border-radius:30px;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+    background:white;
+    color:black;
+    transition:0.3s;
+}
+button:hover{transform:scale(1.1);}
+
+.no{
+    background:#333;
+    color:white;
+    position:relative;
+}
+
+.angry{
+    color:#ff4d4d;
+    font-weight:bold;
+    margin-top:15px;
+    animation:shake 0.4s;
+}
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    50%{transform:translateX(5px);}
+    75%{transform:translateX(-5px);}
+    100%{transform:translateX(0);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="song" loop>
+  <source src="love-song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page" id="page1">
+    <div class="card">
+        <h1>For Vansh 🖤</h1>
+        <p>You changed my life the day I met you.</p>
+        <div class="big-heart">🖤</div>
+
+        <button onclick="openHeart()">Open My Heart 💘</button>
+    </div>
+</div>
+
+<!-- PAGE 2 : QUESTION -->
+<div class="page hidden" id="page2">
+    <div class="card">
+        <h2>Will you be my Valentine? 💘</h2>
+
+        <button onclick="goYes()">YES 💖</button>
+        <button class="no" id="noBtn">NO 🙈</button>
+
+        <div id="angryText"></div>
+    </div>
+</div>
+
+<!-- PAGE 3 : LOVE MESSAGE -->
+<div class="page hidden" id="page3">
+    <div class="card">
+        <h2>For You, Vansh 🖤</h2>
+        <p style="line-height:1.7; font-size:17px;">
+        From the day we met on 28 April 2025, my heart slowly and quietly chose you.
+        You became my comfort, my happiness, and the person I feel safest with.
+        <br><br>
+        Loving you feels natural and easy, like something my heart always knew.
+        I don’t want perfect days — I want real ones, with you by my side.
+        <br><br>
+        This isn’t just about Valentine’s Day.  
+        It’s about choosing you today, tomorrow, and every day that comes after.
+        <br><br>
+        Thank you for being my smile, my peace, and my love.
+        <br><br>
+        <b>Forever yours 🖤</b>
+        </p>
+    </div>
+</div>
+
+<script>
+// Floating hearts
+for(let i=0;i<25;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="🖤";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(14+Math.random()*20)+"px";
+    h.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(h);
+}
+
+// Page transitions
+function openHeart(){
+    document.getElementById("page1").style.transform="translateX(-100%)";
+    document.getElementById("page2").classList.remove("hidden");
+    document.getElementById("song").play();
+}
+
+// NO button logic
+let noTries = 0;
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",()=>{
+    noTries++;
+
+    if(noTries <= 3){
+        noBtn.style.transform =
+          `translate(${Math.random()*200-100}px,${Math.random()*150-75}px)`;
+    } else {
+        document.getElementById("angryText").innerHTML =
+          "<div class='angry'>😠 Stop trying to say NO! You are mine!</div>";
+    }
+});
+
+// YES → NEXT PAGE
+function goYes(){
+    document.getElementById("page2").style.transform="translateX(-100%)";
+    document.getElementById("page3").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
